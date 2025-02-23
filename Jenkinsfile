@@ -64,6 +64,18 @@ pipeline {
             }
         }
         
+        stage('Stop & Remove Existing Container') {
+            steps {
+                script {
+                    // Stop and remove the container if it exists
+                    sh """
+                        docker ps -q -f name=${CONTAINER_NAME} | xargs -r docker stop
+                        docker ps -a -q -f name=${CONTAINER_NAME} | xargs -r docker rm
+                    """
+                }
+            }
+        }
+
         stage('Run Docker Container') {
             when {
                 expression {
@@ -74,6 +86,31 @@ pipeline {
                 script {
                     // Run the Docker container only if the build was successful
                     sh "docker run -d -p 8082:8082 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+                }
+            }
+        }
+
+        stage('Smoke Test') {
+            steps {
+                script {
+                    // Run a simple curl command to check if the application is running
+                    def response = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:8082', returnStdout: true).trim()
+                    if (response != '200') {
+                        error "Smoke Test failed. Server returned HTTP code: ${response}"
+                    } else {
+                        echo "Smoke Test passed. Server is up and running!"
+                    }
+                }
+            }
+        }
+
+        stage('Load Test') {
+            steps {
+                script {
+                    // You can add a load testing tool like Apache JMeter here. This is a simple placeholder for load testing.
+                    echo "Performing Load Test"
+                    // For example, using Apache Benchmark:
+                    sh 'ab -n 100 -c 10 http://192.168.239.143:8082/'
                 }
             }
         }
