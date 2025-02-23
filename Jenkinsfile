@@ -86,6 +86,7 @@ pipeline {
                 script {
                     // Run the Docker container only if the build was successful
                     sh "docker run -d -p 8082:8082 --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+                    sleep 30
                 }
             }
         }
