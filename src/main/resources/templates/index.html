@@ -5,21 +5,136 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link data-th-href="@{/css/main.css?{id}(id=${timestamp})}" rel="stylesheet">
     <title>Build & Deploy SpringBoot Based Static Web Application</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .navbar a {
+            color: white !important;
+        }
+
+        .starter-template {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            color: #4CAF50;
+        }
+
+        .form-group label {
+            color: #555;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        .footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">CI CD DevOps Project</div></a>
+    <a class="navbar-brand" href="#">CI CD DevOps Project</a>
 </nav>
 
 <main role="main" class="container">
     <div class="starter-template">
-        <h1 th:text="${title}">Default title.</h1>
-        <p th:text="${msg}">Default text.</p>
+        <h1 th:text="${title}">Welcome to the CI/CD DevOps Project</h1>
+        <p th:text="${msg}">Fill out the form below to get started!</p>
+    </div>
+
+    <!-- Form for user input -->
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-container">
+                <h2>Fill the Form</h2>
+                <form th:action="@{/submitForm}" method="post">
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" th:value="${form.name}" required>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" th:value="${form.email}" required>
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="text" class="form-control" id="mobile" placeholder="Enter your mobile number" th:value="${form.mobile}" required>
+                    </div>
+
+                    <!-- Date of Birth (DOB) -->
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" th:value="${form.dob}" required>
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" placeholder="Enter your city" th:value="${form.city}" required>
+                    </div>
+
+                    <!-- Pincode -->
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" class="form-control" id="pincode" placeholder="Enter your pincode" th:value="${form.pincode}" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 </main>
 
+<footer class="footer">
+    <p>© 2025 CI/CD DevOps Project | All Rights Reserved</p>
+</footer>
+
 <script data-th-src="@{/js/main.js}"></script>
 </body>
-
 </html>
