@@ -2,7 +2,7 @@ package com.abhishek;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpStatus; // Importing HttpStatus
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.stereotype.Controller;
@@ -15,20 +15,19 @@ public class StartApplication {
     // Declare constants for the values
     public static final String APP_TITLE = "This is a SpringBoot Static Web Application";
     public static final String APP_MSG = "Application Is Deployed To Kubernetes";
+    
+    // Declare constant for health status
+    public static final boolean IS_HEALTHY = false; // Change to 'true' to simulate a healthy service
 
     public static void main(String[] args) {
         SpringApplication.run(StartApplication.class, args);
     }
 
-    // This method has been removed, now you use constants for the values in your view
     @GetMapping("/")
     public String index(final Model model) {
-        // Use constants instead of hardcoding values
         model.addAttribute("title", APP_TITLE);
         model.addAttribute("msg", APP_MSG);
-
         model.addAttribute("form", new MyForm());  // Passing form to the view
-        
         return "index"; // Return the template
     }
 
@@ -52,20 +51,12 @@ public class StartApplication {
 
         @GetMapping("/health")
         public HttpStatus healthCheck() {
-            // Simulate health check condition
-            boolean isHealthy = checkHealthCondition();
-
-            if (isHealthy) {
+            // Use the constant to determine health status
+            if (IS_HEALTHY) {
                 return HttpStatus.OK; // Return HTTP 200 OK
             } else {
                 return HttpStatus.SERVICE_UNAVAILABLE; // Return HTTP 503 Service Unavailable
             }
-        }
-
-        // Simulated health check logic (you can replace this with real checks)
-        private boolean checkHealthCondition() {
-            // Simulate the health of the service (for now, it's always false to return 503)
-            return false; // Change to `true` to simulate a healthy service (returning 200)
         }
     }
 }
