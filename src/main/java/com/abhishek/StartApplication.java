@@ -16,19 +16,20 @@ public class StartApplication {
         SpringApplication.run(StartApplication.class, args);
     }
 
+    // This endpoint serves the index page
     @GetMapping("/")
     public String index(final Model model) {
-        // Add other attributes
+        // Add other attributes for the view
         model.addAttribute("title", "This is a SpringBoot Static Web Application");
         model.addAttribute("msg", "Application Is Deployed To Kubernetes");
 
         // Add form object to the model (this could be a model object with name field)
         model.addAttribute("form", new MyForm());  // Passing form to the view
         
-        return "index"; // Return the template
+        return "index"; // Return the template (index.html)
     }
 
-    // Define a form class with a name property (assuming form.name is used)
+    // Define a form class with a name property (assuming form.name is used in the view)
     public static class MyForm {
         private String name;
 
@@ -42,7 +43,7 @@ public class StartApplication {
         }
     }
 
-    // HealthCheckController class to handle /health endpoint
+    // HealthCheckController class to handle the /health endpoint for health checks
     @RestController
     public static class HealthCheckController {
 
@@ -58,10 +59,10 @@ public class StartApplication {
             }
         }
 
-        // Simulated health check logic (you can replace this with real checks)
+        // Simulated health check logic (you can replace this with real checks, e.g., DB connectivity)
         private boolean checkHealthCondition() {
-            // Simulate the health of the service (for now, it's always false to return 503)
-            return false; // Change to `true` to simulate a healthy service (returning 200)
+            // For now, it returns true, indicating the application is healthy.
+            return true; // Set to `true` to simulate a healthy service
         }
     }
 }
