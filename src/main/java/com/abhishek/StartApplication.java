@@ -2,7 +2,6 @@ package com.abhishek;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.stereotype.Controller;
@@ -12,24 +11,29 @@ import org.springframework.ui.Model;
 @Controller
 public class StartApplication {
 
+    // Declare constants for the values
+    public static final String APP_TITLE = "This is a SpringBoot Static Web Application";
+    public static final String APP_MSG = "Application Is Deployed To Kubernetes";
+
     public static void main(String[] args) {
         SpringApplication.run(StartApplication.class, args);
     }
 
-    // This endpoint serves the index page
+    // This method has been removed, now you use constants for the values in your view
+    // You can use APP_TITLE and APP_MSG in your Thymeleaf templates
+
     @GetMapping("/")
     public String index(final Model model) {
-        // Add other attributes for the view
-        model.addAttribute("title", "This is a SpringBoot Static Web Application");
-        model.addAttribute("msg", "Application Is Deployed To Kubernetes");
+        // Use constants instead of hardcoding values
+        model.addAttribute("title", APP_TITLE);
+        model.addAttribute("msg", APP_MSG);
 
-        // Add form object to the model (this could be a model object with name field)
         model.addAttribute("form", new MyForm());  // Passing form to the view
         
-        return "index"; // Return the template (index.html)
+        return "index"; // Return the template
     }
 
-    // Define a form class with a name property (assuming form.name is used in the view)
+    // Define a form class with a name property (assuming form.name is used)
     public static class MyForm {
         private String name;
 
@@ -43,7 +47,7 @@ public class StartApplication {
         }
     }
 
-    // HealthCheckController class to handle the /health endpoint for health checks
+    // HealthCheckController class to handle /health endpoint
     @RestController
     public static class HealthCheckController {
 
@@ -59,10 +63,10 @@ public class StartApplication {
             }
         }
 
-        // Simulated health check logic (you can replace this with real checks, e.g., DB connectivity)
+        // Simulated health check logic (you can replace this with real checks)
         private boolean checkHealthCondition() {
-            // For now, it returns true, indicating the application is healthy.
-            return true; // Set to `true` to simulate a healthy service
+            // Simulate the health of the service (for now, it's always false to return 503)
+            return false; // Change to `true` to simulate a healthy service (returning 200)
         }
     }
 }
