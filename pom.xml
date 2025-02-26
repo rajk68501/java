@@ -40,6 +40,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Add Spring Boot Actuator for health check and other endpoints -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- debugging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,9 +73,7 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-
         </plugins>
+
     </build>
-
-
 </project>
