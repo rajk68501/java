@@ -2,6 +2,7 @@ package com.abhishek;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus; // Importing HttpStatus
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,6 @@ public class StartApplication {
     }
 
     // This method has been removed, now you use constants for the values in your view
-    // You can use APP_TITLE and APP_MSG in your Thymeleaf templates
-
     @GetMapping("/")
     public String index(final Model model) {
         // Use constants instead of hardcoding values
