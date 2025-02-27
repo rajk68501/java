@@ -3,21 +3,15 @@ package com.abhishek;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 
 @SpringBootApplication
 @Controller
 public class StartApplication {
-
-    // Declare constants for the values
-    public static final String APP_TITLE = "This is a SpringBoot Static Web Application";
-    public static final String APP_MSG = "Application Is Deployed To Kubernetes";
-    
-    // Declare constant for health status
-    public static final boolean IS_HEALTHY = false; // Change to 'true' to simulate a healthy service
 
     public static void main(String[] args) {
         SpringApplication.run(StartApplication.class, args);
@@ -25,9 +19,13 @@ public class StartApplication {
 
     @GetMapping("/")
     public String index(final Model model) {
-        model.addAttribute("title", APP_TITLE);
-        model.addAttribute("msg", APP_MSG);
+        // Add other attributes
+        model.addAttribute("title", "This is a SpringBoot Static Web Application");
+        model.addAttribute("msg", "Application Is Deployed To Kubernetes");
+
+        // Add form object to the model (this could be a model object with name field)
         model.addAttribute("form", new MyForm());  // Passing form to the view
+        
         return "index"; // Return the template
     }
 
@@ -45,18 +43,26 @@ public class StartApplication {
         }
     }
 
-    // HealthCheckController class to handle /health endpoint
-    @RestController
-    public static class HealthCheckController {
-
-        @GetMapping("/health")
-        public HttpStatus healthCheck() {
-            // Use the constant to determine health status
-            if (IS_HEALTHY) {
-                return HttpStatus.OK; // Return HTTP 200 OK
-            } else {
-                return HttpStatus.SERVICE_UNAVAILABLE; // Return HTTP 503 Service Unavailable
-            }
+    // Health check endpoint
+    @GetMapping("/health")
+    public ResponseEntity<String> getHealth() {
+        boolean isServiceHealthy = checkServiceHealth();
+        
+        if (isServiceHealthy) {
+            return ResponseEntity.ok("Service is up and running!");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Service is down!");
         }
+    }
+
+    // Logic to check the service health
+    private boolean checkServiceHealth() {
+        // Add logic to check actual service health, for example:
+        // - Check database connection
+        // - Check other dependencies
+        // - Perform basic checks like disk space, memory usage, etc.
+
+        // For now, let's assume the service is always healthy
+        return true;  // Return false here to simulate a down service.
     }
 }
