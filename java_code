@@ -3,10 +3,11 @@ package com.abhishek;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 
 @SpringBootApplication
 @Controller
@@ -42,26 +43,26 @@ public class StartApplication {
         }
     }
 
-    // HealthCheckController class to handle /health endpoint
-    @RestController
-    public static class HealthCheckController {
-
-        @GetMapping("/health")
-        public HttpStatus healthCheck() {
-            // Simulate health check condition
-            boolean isHealthy = checkHealthCondition();
-
-            if (isHealthy) {
-                return HttpStatus.OK; // Return HTTP 200 OK
-            } else {
-                return HttpStatus.SERVICE_UNAVAILABLE; // Return HTTP 503 Service Unavailable
-            }
+    // Health check endpoint
+    @GetMapping("/health")
+    public ResponseEntity<String> getHealth() {
+        boolean isServiceHealthy = checkServiceHealth();
+        
+        if (isServiceHealthy) {
+            return ResponseEntity.ok("Service is up and running!");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Service is down!");
         }
+    }
 
-        // Simulated health check logic (you can replace this with real checks)
-        private boolean checkHealthCondition() {
-            // Simulate the health of the service (for now, it's always false to return 503)
-            return false; // Change to `true` to simulate a healthy service (returning 200)
-        }
+    // Logic to check the service health
+    private boolean checkServiceHealth() {
+        // Add logic to check actual service health, for example:
+        // - Check database connection
+        // - Check other dependencies
+        // - Perform basic checks like disk space, memory usage, etc.
+
+        // For now, let's assume the service is always healthy
+        return true;  // Return false here to simulate a down service.
     }
 }
