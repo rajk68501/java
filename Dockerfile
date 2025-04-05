@@ -3,7 +3,7 @@ FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 
-# Copy the compiled .jar file into the container
+# Copy the compiled .jar file into the container1111111111111
 COPY target/spring-boot-web.jar /app/my-app.jar
 
 # Expose the application port 8082
