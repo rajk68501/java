@@ -21,7 +21,7 @@ public class StartApplication {
     public String index(final Model model) {
         // Add other attributes
         model.addAttribute("title", "This is SPRINGBOOT Application. running on Docker 5Apr2025--webhook");
-        model.addAttribute("msg", "Application Is Deployed To Docker");
+        model.addAttribute("msg", "Application Is Deployed To Docker ***************##############");
 
         // Add form object to the model (this could be a model object with name field)
         model.addAttribute("form", new MyForm());  // Passing form to the view
