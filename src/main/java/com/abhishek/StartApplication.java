@@ -20,7 +20,7 @@ public class StartApplication {
     @GetMapping("/")
     public String index(final Model model) {
         // Add other attributes
-        model.addAttribute("title", "This is SPRINGBOOT Application. running on Docker @5Apr2025--webhook");
+        model.addAttribute("title", "This is SPRINGBOOT Application. Started by GitHub push by rajk68501");
         model.addAttribute("msg", "Application Is Deployed To Docker");
 
         // Add form object to the model (this could be a model object with name field)
