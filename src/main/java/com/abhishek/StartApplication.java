@@ -20,7 +20,7 @@ public class StartApplication {
     @GetMapping("/")
     public String index(final Model model) {
         // Add other attributes
-        model.addAttribute("title", "This is a SpringBoot Static Web Application Docker file");
+        model.addAttribute("title", "This is SPRINGBOOT Application. running on Docker");
         model.addAttribute("msg", "Application Is Deployed To Docker");
 
         // Add form object to the model (this could be a model object with name field)
