@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: rajk6850/myapp:latest
+          image: rajk6850/eksapp:latest
           ports:
             - containerPort: 80  # Ensure this matches the targetPort in your service.yaml
