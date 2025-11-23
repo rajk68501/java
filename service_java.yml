@@ -14,5 +14,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80            # External port
-      targetPort: 8080   # Container port your Java app listens on
+      targetPort: 8081   # Container port your Java app listens on
   type: LoadBalancer
