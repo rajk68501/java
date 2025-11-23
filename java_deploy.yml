@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: java-app-container
-          image: rajk6850/eksapp:latest  # Replace with your actual image name and tag
+          image: rajk6850/myapp:latest  # Replace with your actual image name and tag
           ports:
             - containerPort: 8081
           readinessProbe:
