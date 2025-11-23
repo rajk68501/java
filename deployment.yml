@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-boot-app
+  name: myapp-deployment
   labels:
-    app: spring-boot-app
+    app: myapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-boot-app
+      app: myapp
   template:
     metadata:
       labels:
-        app: spring-boot-app
+        app: myapp
     spec:
       containers:
-      - name: spring-boot-app
-        image: adijaiswal/xyz:tag
-        ports:
-        - containerPort: 8081
+        - name: myapp
+          image: ${DOCKER_REGISTRY}/${DOCKER_USER}/${DOCKER_IMAGE}:${DOCKER_TAG}
+          ports:
+            - containerPort: 8081  # Update to your app's listening port
