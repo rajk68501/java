@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: ${DOCKER_REGISTRY}/${DOCKER_USER}/${DOCKER_IMAGE}:${DOCKER_TAG}
+          image: rajk6850/myapp:latest
           ports:
             - containerPort: 8081  # Update to your app's listening port
