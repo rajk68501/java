@@ -1,5 +1,5 @@
 # Use a stable OpenJDK version, such as 11
-FROM openjdk:11-jdk-slim
+FROM openjdk:26-ea
 
 # Copy the built jar file to the container
 COPY target/myapp.jar /app/myapp.jar
