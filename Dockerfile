@@ -2,10 +2,10 @@
 FROM openjdk:26-ea
 
 # Copy the built jar file to the container
-COPY target/myapp.jar /app/myapp.jar
+COPY target/spring-boot-web.jar /app/spring-boot-web.jar
 
 # Set the working directory
 WORKDIR /app
 
 # Run the jar file when the container starts
-ENTRYPOINT ["java", "-jar", "myapp.jar"]
+ENTRYPOINT ["java", "-jar", "spring-boot-web.jar"]
