@@ -1,11 +1,15 @@
-# Use a stable OpenJDK version, such as 11
-FROM openjdk:26-ea
+# Use Eclipse Temurin OpenJDK 17 base image
+FROM eclipse-temurin:17-jdk-alpine
 
-# Copy the built jar file to the container
-COPY target/spring-boot-web.jar /app/spring-boot-web.jar
-
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Run the jar file when the container starts
-ENTRYPOINT ["java", "-jar", "spring-boot-web.jar"]
+# Copy the built JAR file into the container
+# Replace 'your-app.jar' with your actual jar filename
+COPY target/eks.jar .
+
+# Expose the application's port if needed (e.g., 8080)
+EXPOSE 8081
+
+# Run the application
+CMD ["java", "-jar", "eks.jar"]
