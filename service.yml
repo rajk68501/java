@@ -2,11 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: myapp-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"  # This annotation marks the load balancer as internal
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0345cca75673a7580,subnet-042bdce4f46f88754  # Optional: Specific subnets to use
 spec:
   selector:
-    app: myapp
+    app: myapp  # Ensure this matches your pod selector
   ports:
     - protocol: TCP
-      port: 80    # Exposed port outside the cluster
-      targetPort: 8081  # Port inside the container
-  type: LoadBalancer  # Expose the app externally
+      port: 80  # The external port the load balancer will expose
+      targetPort: 80  # The port your pods are exposing
+  type: LoadBalancer  # This tells Kubernetes to provision a LoadBalancer
+
