@@ -1,13 +1,6 @@
-# Dockerfile
-FROM openjdk:21-jdk-slim
+# Use a valid OpenJDK version, like 17 or 20
+FROM openjdk:17-jdk-slim
 
+COPY target/myapp.jar /app/myapp.jar
 WORKDIR /app
-
-# Copy the compiled .jar file into the container666666666666666
-COPY target/spring-boot-web.jar /app/my-app.jar
-
-# Expose the application port 8082
-EXPOSE 8082
-
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "/app/my-app.jar"]
+ENTRYPOINT ["java", "-jar", "myapp.jar"]
