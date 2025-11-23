@@ -1,16 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp-service
+  name: nginx-service
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"  # This annotation marks the load balancer as internal
-    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0345cca75673a7580,subnet-042bdce4f46f88754  # Optional: Specific subnets to use
+    service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-role: elb
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0345cca75673a7580,subnet-042bdce4f46f88754
 spec:
   selector:
-    app: myapp  # Ensure this matches your pod selector
+    app: nginx
   ports:
     - protocol: TCP
-      port: 80  # The external port the load balancer will expose
-      targetPort: 80  # The port your pods are exposing
-  type: LoadBalancer  # This tells Kubernetes to provision a LoadBalancer
-
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
