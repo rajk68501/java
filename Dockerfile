@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy the built JAR file into the container
 # Replace 'your-app.jar' with your actual jar filename
-COPY target/eks.jar .
+COPY target/spring-boot-web.jar .
 
 # Expose the application's port if needed (e.g., 8080)
 EXPOSE 8081
