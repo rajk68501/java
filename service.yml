@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service
-  metadata:
-    name: spring-boot-app-service
-  spec:
-    type: NodePort
-    ports:
-    - name: http
-      port: 80
-      targetPort: 8081
-      protocol: TCP
-    selector:
-      app: spring-boot-app
+metadata:
+  name: myapp-service
+spec:
+  selector:
+    app: myapp
+  ports:
+    - protocol: TCP
+      port: 80    # Exposed port outside the cluster
+      targetPort: 8081  # Port inside the container
+  type: LoadBalancer  # Expose the app externally
